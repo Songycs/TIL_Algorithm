@@ -43,7 +43,11 @@
 ### `최장 공통 부분문자열 ( Longest common substring ) `
 
   - 두 문자열에서 공통되는 공통문자열 중 가장 긴 문자열을 찾아내는 알고리즘
-  
+![image](https://user-images.githubusercontent.com/15559593/132098719-7add839f-3e91-4d7d-be1a-c43acab434ac.png)
+
+  - cf) 최장 공통부분 수열 (중간에 떨어져 있어도 됨)
+![image](https://user-images.githubusercontent.com/15559593/132098724-0bf30d94-d872-47b3-8f7c-6563b141c838.png)
+
 ![image](https://user-images.githubusercontent.com/15559593/132098664-e7eee763-e5d9-4168-8417-e393531a865d.png)
   - Ref : https://gusdnd852.tistory.com/173
 
