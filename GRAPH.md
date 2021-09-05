@@ -113,7 +113,7 @@
                   if cost < distance[i[0]]:
                       distance[i[0]] = cost
                       heapq.heappush(q,(cost,i[0]))
-    ```
+   ```
    - `시행착오`
       - graph를 만드는 과정에서 주어지는 무방향 그래프인것을 고려하지않아 한방향만 추가해서 실패를 했었음
       
