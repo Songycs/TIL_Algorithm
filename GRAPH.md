@@ -82,7 +82,9 @@
 ### `Dijkstra` 
 
   - `배달`
-  ![image](https://user-images.githubusercontent.com/15559593/132130114-82847bff-3cdf-4f1c-a6a6-d3ee31514802.png)
+
+  - ![image](https://user-images.githubusercontent.com/15559593/132130114-82847bff-3cdf-4f1c-a6a6-d3ee31514802.png)
+  
   - `구현코드`
   ```Python
       import heapq
