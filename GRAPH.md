@@ -76,14 +76,45 @@
     - 정점 탐색 유형
       - A->D 갈 수 있나? -> BFS, DFS
       - 최단거리는 ? -> 다익스트라, 플로이드워셜
-      - 
-      
- - `k `
- - `k `
- - `k `
+
 
 ---------------------------------------
 ### `Dijkstra` 
+
+  - `배달`
+  ![image](https://user-images.githubusercontent.com/15559593/132130114-82847bff-3cdf-4f1c-a6a6-d3ee31514802.png)
+  - `구현코드`
+  ```Python
+      import heapq
+      def solution(N, road, K):
+          INF = int(1e9)
+          global distance
+          distance = [INF] * (N+1)
+          global graph
+          graph = [[] for i in range(N+1)]
+          for a,b,c in road:
+              graph[a].append((b,c))
+              graph[b].append((a,c))
+          dijkstra(1)
+          return len([x for x in distance if x<=K])
+
+      def dijkstra(start):
+          q = []
+          heapq.heappush(q,(0,start))
+          distance[start] = 0
+          while q:
+              dist, now = heapq.heappop(q)
+              if distance[now] < dist:
+                  continue
+              for i in graph[now]:
+                  cost = dist + i[1]
+                  if cost < distance[i[0]]:
+                      distance[i[0]] = cost
+                      heapq.heappush(q,(cost,i[0]))
+    ```
+   - `시행착오`
+      - graph를 만드는 과정에서 주어지는 무방향 그래프인것을 고려하지않아 한방향만 추가해서 실패를 했었음
+      
 ---------------------------------------
 ### `Kruscal`
 ---------------------------------------
