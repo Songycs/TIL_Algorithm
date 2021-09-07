@@ -74,7 +74,7 @@
     + 영어 
     + 다음 큰 숫자
     + 오픈채팅방
-    + 타겟넘버
+    + [타겟넘버(dfs)](https://github.com/Songycs/TIL_Algorithm/blob/main/DFS%26BFS/%ED%83%80%EA%B2%9F%EB%84%98%EB%B2%84.md)
     + 더 맵게
     + 멀쩡한 사각형
     + 소수찾기
