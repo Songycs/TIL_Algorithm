@@ -75,7 +75,7 @@
     + 다음 큰 숫자
     + 오픈채팅방
     + [타겟넘버(dfs)](https://github.com/Songycs/TIL_Algorithm/blob/main/DFS%26BFS/%ED%83%80%EA%B2%9F%EB%84%98%EB%B2%84.md)
-    + 더 맵게
+    + [더 맵게(heap)](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%EB%8D%94%20%EB%A7%B5%EA%B2%8C_level2.md)
     + 멀쩡한 사각형
     + 소수찾기
     + 전화번호 목록
@@ -94,13 +94,13 @@
 
 
   + Level 3
-    + 야근 지수
+    + [야근 지수](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%EC%95%BC%EA%B7%BC%EC%A7%80%EC%88%98_level3.md)
     + 2xn타일링
     + 줄서는방법
     + 이중우선순위큐
     + 네트워크
     + 멀리뛰기
     + 자물쇠와 열쇠
-    + 가장 먼 노드
+    + [가장 먼 노드(dijkstra,level3](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%EA%B0%80%EC%9E%A5%20%EB%A8%BC%20%EB%85%B8%EB%93%9C_level3.md)
     + 네트워크
     + [배달(dijkstra,level3)](https://github.com/Songycs/TIL_Algorithm/blob/main/GRAPH.md)
