@@ -63,7 +63,7 @@
   + Level 2
     + [기능개발(stack/queue)](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%EA%B8%B0%EB%8A%A5%EA%B0%9C%EB%B0%9C_level2.md)
     + [프린터(stack/queue)](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%ED%94%84%EB%A6%B0%ED%84%B0_level2.md)
-    + 다리를 지나는 트럭
+    + [다리를 지나는 트럭(stack/queue)](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%EB%8B%A4%EB%A6%AC%EB%A5%BC%20%EC%A7%80%EB%82%98%EB%8A%94%20%ED%8A%B8%EB%9F%AD_level2.md)
     + 가장 큰 수
     + 위장
     + H-INDEX
