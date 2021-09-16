@@ -5,10 +5,10 @@
   - **자료구조 ( 배열, 리스트, 트리, 스택, 힙, 큐, 우선순위 큐, 덱, 해시, ETC, 트라이 )**
   - **그래프 ( DFS, BFS, 오일러, 해밀턴, 백트래킹 )**
   - 최단경로
-  - **정렬 ( 버블, 병합, 퀵, STABLE, 리스트, 삽입, 선택 )
-  - **탐색 ( 이진, 완전 )
-  - **그리디 ( Greedy ) 
-  - **DP
+  - **정렬 ( 버블, 병합, 퀵, STABLE, 리스트, 삽입, 선택 )**
+  - **탐색 ( 이진, 완전 )**
+  - [**그리디 ( Greedy ) **](https://github.com/Songycs/TIL_Algorithm/blob/main/GREEDY%20%26%20DYNAMIC%20PROGRAMMING/GREEDY.MD)
+  - [**DP**](https://github.com/Songycs/TIL_Algorithm/blob/main/GREEDY%20%26%20DYNAMIC%20PROGRAMMING/DP.MD)
 
 
 + 프로그래머스 ( programmers.co.kr ) 
