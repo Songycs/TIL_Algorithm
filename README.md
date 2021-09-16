@@ -95,10 +95,10 @@
 
   + Level 3
     + [야근 지수](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%EC%95%BC%EA%B7%BC%EC%A7%80%EC%88%98_level3.md)
-    + 2xn타일링
+    + [2xn타일링](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/2%20x%20N%20%ED%83%80%EC%9D%BC%EB%A7%81_level3.md)
     + 줄서는방법
-    + 이중우선순위큐
-    + 네트워크
+    + [이중우선순위큐](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%EC%9D%B4%EC%A4%91%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84%ED%81%90_level3.md)
+    + [네트워크](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_level3.md)
     + 멀리뛰기
     + 자물쇠와 열쇠
     + [가장 먼 노드(dijkstra,level3](https://github.com/Songycs/TIL_Algorithm/blob/main/PROGRAMMERS/%EA%B0%80%EC%9E%A5%20%EB%A8%BC%20%EB%85%B8%EB%93%9C_level3.md)
