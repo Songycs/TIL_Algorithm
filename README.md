@@ -7,7 +7,7 @@
   - 최단경로
   - **정렬 ( 버블, 병합, 퀵, STABLE, 리스트, 삽입, 선택 )**
   - **탐색 ( 이진, 완전 )**
-  - [**그리디 ( Greedy ) **](https://github.com/Songycs/TIL_Algorithm/blob/main/GREEDY%20%26%20DYNAMIC%20PROGRAMMING/GREEDY.MD)
+  - [**그리디( Greedy )**](https://github.com/Songycs/TIL_Algorithm/blob/main/GREEDY%20%26%20DYNAMIC%20PROGRAMMING/GREEDY.MD)
   - [**DP**](https://github.com/Songycs/TIL_Algorithm/blob/main/GREEDY%20%26%20DYNAMIC%20PROGRAMMING/DP.MD)
 
 
