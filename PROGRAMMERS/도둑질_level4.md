@@ -1,7 +1,7 @@
 ---------------------------------------
 ### `도둑질` 
 
-  - [출처링크]  (https://programmers.co.kr/learn/courses/30/lessons/42897)
+  - [출처링크](https://programmers.co.kr/learn/courses/30/lessons/42897)
   
 ![image](https://user-images.githubusercontent.com/15559593/136973500-31165169-6f48-4ec7-818f-576c4aede4e3.png)
 
