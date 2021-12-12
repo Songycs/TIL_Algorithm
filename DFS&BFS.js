@@ -66,6 +66,37 @@ function solution(n, arr){
   DFS(1);
   return answer;
 }
+const graph = {
+  A: ["B", "C"],
+  B: ["A", "D"],
+  C: ["A", "G", "H", "I"],
+  D: ["B", "E", "F"],
+  E: ["D"],
+  F: ["D"],
+  G: ["C"],
+  H: ["C"],
+  I: ["C", "J"],
+  J: ["I"],
+};
+
+//DFS 스택형 기본
+const dfs = (graph, startNode) => {
+  let needVisitStack = []; // 탐색을 해야 할 노드들
+  let visitedQueue = []; // 탐색을 마친 노드들
+
+  needVisitStack.push(startNode);
+
+  // 탐색을 해야 할 노드가 남아 있다면
+  while (needVisitStack.length !== 0) {
+    const node = needVisitStack.pop();
+    if (!visitedQueue.includes(node)) {
+      visitedQueue.push(node);
+      needVisitStack = [...needVisitStack, ...graph[node]];
+    }
+  }
+
+  return visitedQueue;
+};
 
 // 미로탐색 N은 7, DFS 1은벽 0은 통과가능
 
@@ -192,5 +223,138 @@ function solution(board){
           }
       }
   }
+  return answer;
+}
+
+
+// 네트워크 개수 파악 bfs (연결여부 )
+function solution(n, computers) {
+  let answer = 0;
+  let visited = Array.from({length:n},()=>0);
+  let queue = []
+
+  function bfs(num){
+      queue.push(num);
+      visited[num]=1;
+      while(queue.length){
+          let x = queue.shift();
+          computers[x].forEach((item,index)=>{
+                  if(visited[index]===0 && item===1){
+                      visited[index] = 1;
+                      queue.push(index);
+                  }
+          });
+
+      }
+  }
+  for(let k=0;k<n;k++){
+      if(visited[k]===0){
+          bfs(k);
+          answer++;
+      }
+  }
+
+  return answer;
+}
+
+//bfs, 단어변환
+function solution(begin, target, words) {
+  let answer = 0;
+  let visited = [];
+  let queue = [];
+
+  if(!words.includes(target)) return 0;
+
+  queue.push([begin,answer]);
+
+  while(queue) {
+      let [v, cnt] = queue.shift();
+
+      if (v === target) {
+          return cnt;
+      }
+
+      words.forEach(word => {
+          let notEqual = 0;
+
+          if(visited.includes(word)) return;
+
+          // 하나만 다른~
+          // for (let i = 0 ; i < word.length ; i++) {
+          //   const letter = slicedWord(word, i);
+          //   const matched = words.filter((v, j) => !visited.has(v) && slicedWord(v, i) === letter);
+          //   temp.push(...matched);
+          // }
+
+          // words의 단어들인 w와 begin의 문자를 비교하여 서로 다른 부분의 인덱스들을 구한다.
+          //const idx = [...w].reduce((a, c, i) => (c != s[i] ? a.push(i) : a, a), []);
+
+          for (let i=0; i<word.length; i++) {
+              if (word[i] !== v[i]) notEqual++;
+          }
+
+          if (notEqual === 1) {
+              queue.push([word, ++cnt]);
+              visited.push(word);
+          }
+      });
+  }
+
+  return answer;
+}
+
+
+//여행경로
+function solution(tickets) {
+  let answer = [];
+  const result = [];
+  const visited = [];
+
+  tickets.sort();
+
+  const len = tickets.length;
+  const dfs = (str, count) => {
+    result.push(str);
+    if(count === len) {
+      answer = result;
+      return true;
+    }
+    for(let i = 0; i < len; i++) {
+      if(!visited[i] && tickets[i][0] === str) {
+        visited[i] = true;
+
+        if(dfs(tickets[i][1], count+1)) return true;
+
+        visited[i] = false;
+      }
+    }
+    result.pop();
+    return false;
+  }
+  dfs("ICN", 0);
+  return answer;
+}
+
+
+//PATH 고려
+function solution(tickets) {
+  tickets.sort(); // 글자순 정렬
+  let vis=Array(tickets.length).fill(false);
+  var answer = [];
+  function dfs(cur,cnt,path){
+      if(cnt===tickets.length && answer.length===0){
+          answer=path;
+          return;
+      }
+      for(let i=0;i<tickets.length;i+=1){
+          if(vis[i])continue;
+          if(tickets[i][0]===cur){
+              vis[i]=true;
+              dfs(tickets[i][1],cnt+1,[...path,tickets[i][1]]);
+              vis[i]=false;
+          }
+      }
+  }
+  dfs("ICN",0,["ICN"])
   return answer;
 }

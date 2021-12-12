@@ -62,3 +62,124 @@ function solution(n, costs) {
   }
   return answer;
 }
+
+
+
+// 다익스트라
+
+// 1번에서 가장 멀리 떨어진 노드의 개수는?
+const dijkstra = (n, adj) => {
+  const dist = Array(n + 1).fill(false);
+  const queue = [];
+
+  queue.push({ to: 1, cost: 0 });
+  dist[1] = 0;
+
+  while (queue.length !== 0) {
+    let { to, cost } = queue.shift();
+
+    adj[to].map((nextNode) => {
+      const nextCost = cost + 1;
+      if (dist[nextNode] === false) {
+        dist[nextNode] = nextCost;
+        queue.push({ to: nextNode, cost: nextCost });
+      }
+    });
+  }
+
+  const max = Math.max(...dist);
+  return dist.filter((num) => {
+    return num === max;
+  }).length;
+};
+
+function solution(n, edge) {
+  let answer = 0;
+  let adj = Array.from({ length: n + 1 }, () => []);
+
+  // 인접 리스트 생성
+  edge.forEach((route) => {
+    adj[route[0]].push(route[1]);
+    adj[route[1]].push(route[0]);
+  });
+
+  // 다익스트라
+  answer = dijkstra(n, adj);
+  return answer;
+}
+
+
+//플로이드워셜
+const a = [];
+for (let i = 0; i < n; i++) {
+  a[i] = [];
+  for (let j = 0; j < n; j++) {
+    a[i][j] = null;
+  }
+}
+
+// results의 내용 반영
+// a[i][j] === true : i 선수가 j 선수보다 강함
+results.forEach(
+  v => {
+    a[v[0] - 1][v[1] - 1] = true;
+  }
+);
+for (let k = 0; k < n; k++) {
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+        a[i][j] = a[i][j] || (a[i][k] && a[k][j]);
+    }
+  }
+}
+
+
+//순위 정하기
+function solution(n, results) {
+  let answer = 0;
+  let adjMatrix = Array.from({ length: n + 1 }, () =>
+    Array(n + 1).fill(Infinity)
+  );
+
+  results.forEach(([win, lose]) => {
+    adjMatrix[win][lose] = 1; // 이김
+    adjMatrix[lose][win] = -1; // 짐
+  });
+
+  // 플로이드 와샬
+  // 한 다리를 걸쳐서 2개의 선수 승부 결과를 알 수 있어야 합다.
+  for (let k = 1; k <= n; k++) {
+    for (let i = 1; i <= n; i++) {
+      for (let j = 1; j <= n; j++) {
+        if (i === j) continue;
+        if (adjMatrix[i][j] === Infinity) {
+          if (adjMatrix[i][k] === 1 && adjMatrix[k][j] === 1) {
+            adjMatrix[i][j] = 1; // 이김
+          } else if (adjMatrix[i][k] === -1 && adjMatrix[k][j] === -1) {
+            adjMatrix[i][j] = -1; // 짐
+          }
+        }
+      }
+    }
+  }
+
+  adjMatrix.forEach((row) => {
+    const result = row.filter((item) => {
+      return item === Infinity;
+    }).length;
+
+    if (result === 2) answer++;
+  });
+
+  return answer;
+}
+//이중배열 초기화
+let graph = [];
+for (let i = 0; i < n; i++) {
+  graph[i] = [];
+  for (let j = 0; j < n; j++) {
+    graph[i][j] = 0;
+  }
+}
+const graph = Array.from(Array(results.length), () => Array(results.length).fill(0))
+const graph = Array.from({length:n},()=>new Array(n).fill(Infinity))

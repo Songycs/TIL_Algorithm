@@ -60,6 +60,23 @@ function lis(arr){
 
 let arr = [1,4,6,8,3,5,6,7];
 
+
+function max_sub_dp(arr){
+  let max_sub = arr.reduce((acc,cur,idx,arry)=>{
+    let tmp = [];
+    for(let i = 0 ; i<idx+1;i++){
+      if(arry[i]<parseInt(cur)){
+        tmp.push(acc[i])
+      }
+    }
+    if(tmp.length>0){
+      acc[idx] += Math.max(...tmp);
+    }
+    return acc;
+  },Array(arr.length).fill(1));
+  return Math.max(...max_sub);
+}
+
 //knapsack
 function solution(m, coin){
   let answer=0;
