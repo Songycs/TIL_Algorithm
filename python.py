@@ -1,4 +1,14 @@
+#Enumerate
 
+#Zip 길이는 짧은것 기준
+for pair in zip(numbers, letters):
+
+pairs = list(zip(numbers, letters))
+
+#unzip
+numbers, letters = zip(*pairs)
+# numbers:(1,2,3)
+dict(zip(keys,values))
 #Set
 s.remove(v)
 s.add(v)
@@ -16,6 +26,14 @@ dict.items()#둘다
 dict.get('key') # none if not exist
 del dict['key']
 dict.clear()
+from collections import defaultdict #
+int dic_int = defaultdict(int)
+dic_int['key'] # 0 #
+list dic_list = defaultdict(list) dic_list['key']
+dic_int['key2'] = '명시적인 값 지정하면 변경됨'
+dic_int
+# # defaultdict(int, {'key': 0, 'key2': '명시적인 값 지정하면 변경됨'})
+set dic_set = defaultdict(set)
 
 # heap
 import heapq
@@ -27,6 +45,21 @@ heapq.heappop(h)
 counter = Counter('string' or list)
 counter.most_common() #많이나온순
 counter.most_common() #가장많이 나온
+
+#Bisect
+from bisect import bisect_right, bisect_left
+bisect_left(a, x)
+bisect_right(a, x)
+def count_by_range(a, left_value, right_value):
+    rindex = bisect_right(a, right_value)
+    lindex = bisect_left(a, left_value)
+    return rindex-lindex
+
+#zfill(앞채우기), rjust(앞채우기),ljust(뒤채우기), center(양옆)
+#format활용가능
+
+value.zfill(num)
+
 
 #union find
 def find_parent(parent, x):
@@ -210,7 +243,32 @@ for i in range(1, n+1):
         print('도달 할 수 없음')
     else:
         print(distance[i])
+# 가장 먼 노드
+import heapq
+INF = int(1e9)
 
+def solution(n, vertex):
+    graph = [[] for i in range(n+1)]
+    distance = [INF] * (n+1)
+    for edge in vertex:
+        graph[edge[0]].append([edge[1],1])
+        graph[edge[1]].append([edge[0],1])
+    def dijkstra(start):
+        q = []
+        heapq.heappush(q,(0,start))
+        distance[start] = 0
+        while q:
+            dist, now = heapq.heappop(q)
+            if distance[now] < dist:
+                continue
+            for i in graph[now]:
+                cost = dist + 1
+                if cost < distance[i[0]]:
+                    distance[i[0]] = cost
+                    heapq.heappush(q,(cost,i[0]))
+    dijkstra(1)
+    distanceSet = set(distance)
+    return distance.count(sorted(distanceSet,reverse=True)[1])
 
 # 우선순위 큐
 def dijkstra(start):
@@ -283,6 +341,32 @@ for a in range(1, n + 1):
         else:
             print(graph[a][b], end=" ")
     print()
+
+# 택시 합승요금
+def solution(n, s, a, b, fares):
+    INF = int(1e9)
+    graph = [[INF]*(n+1) for _ in range(n+1)]
+
+    for i in range(1,n+1):
+        graph[i][i]=0
+
+    for fare in fares:
+        graph[fare[0]][fare[1]]=fare[2]
+        graph[fare[1]][fare[0]]=fare[2]
+
+    for k in range(1,n+1):
+        for i in range(1,n+1):
+            for j in range(1,n+1):
+                if graph[i][j] > graph[i][k]+graph[k][j]:
+                    graph[i][j] = graph[i][k]+graph[k][j]
+    min_fee = INF
+
+    for i in range(1,n+1):
+        min_fee = min(min_fee, graph[s][i]+graph[i][a]+graph[i][b])
+
+    return min_fee
+
+
 
 #순열
 def permute(arr):
@@ -642,3 +726,148 @@ def lis(arr):
             C[next_loc] = n
 
     return tmp_longest
+
+
+
+#자리수합
+def solution(n):
+    new = str(n)
+    add = 0
+    for i in range(len(new)):
+        add += int(new[i])
+    return add
+
+def sum_digit(number):
+    return sum(map(int,str(number)))
+
+
+
+#bfs 네트워크
+
+from collections import deque
+
+def solution(n, computers):
+    visited = [False] * n
+    count = 0
+
+    def bfs(graph, start, visited):
+        queue = deque([start])
+        visited[start] = True
+        while queue:
+            v = queue.popleft()
+            for i in range(n):
+                if not visited[i] and graph[v][i]==1:
+                    queue.append(i)
+                    visited[i] = True
+
+    for i in range(n):
+        if visited[i]==0:
+            bfs(computers,  i, visited)
+            count+=1
+
+    return count
+
+#가운데글자 가져오기
+def solution(s):
+    return s[(len(s)-1)//2:len(s)//2+1]
+
+#약수의합
+def solution(n):
+    return n + sum([i for i in range(1, (n // 2) + 1) if n % i == 0])
+
+
+#문자열 내림차순
+def solution(s):
+    # reverse(), reversed(), [::-1]
+    # sort 메소드 : reverse=True
+    return "".join(sorted(s))[::-1]
+
+
+#행렬의 곱셈
+def solution(arr1, arr2):
+    # len(arr1) x len(arr2[0]) arr1의 행 x arr2의 열
+    row_arr1 = len(arr1)
+    col_arr2 = len(arr2[0])
+
+    answer = [[0]*col_arr2 for _ in range(row_arr1)]
+
+    for i in range(row_arr1):
+        for j in range(col_arr2):
+            for k in range(len(arr1[0])):
+                answer[i][j] +=  arr1[i][k] * arr2[k][j]
+    return answer
+def solution(arr1, arr2):
+  return [[sum(a*b for a, b in zip(A_row,B_col)) for B_col in zip(*B)] for A_row in A]
+
+
+#피보나치
+def solution(n):
+    pre, next = 0, 1
+    for _ in range(n):
+        pre, next = next, pre + next
+    return pre%1234567
+
+#이중우선순위큐
+import heapq
+def solution(operations):
+    q = []
+    heapq.heapify(q)
+    for operation in operations:
+        com, num = operation.split()
+        num = int(num)
+        if com=='I':
+            heapq.heappush(q,num)
+        else:
+            if num==1 and q:
+                q.pop(q.index(heapq.nlargest(1, q)[0]))
+            else:
+                if q:
+                    heapq.heappop(q)
+    return [heapq.nlargest(1, q)[0], heapq.nsmallest(1, q)[0]] if q else [0,0]
+
+
+
+
+  #bfs 단어변환
+
+def solution(begin, target, words):
+    if target not in words:
+        return 0
+    queue = deque()
+    queue.append([begin,0])
+    while queue:
+        now,depth = queue.popleft()
+        temp = ""
+        for word in words:
+            diff = 0
+            for i in range(len(word)):
+                if now[i]!=word[i]: diff+=1
+            if diff==1 and word == target:
+                depth+=1
+                return depth
+            elif diff==1:
+                temp = word
+                queue.append(([word,depth+1]))
+        words.remove(temp)
+    return 0
+#방문을 체크해서 동일한 탐색을 하지 않도록 수정
+def solution2(begin, target, words):
+    if target not in words:
+        return 0
+    visited = [0 for i in words]
+    answer = 0
+    stacks = [begin]
+
+    while stacks:
+        stack = stacks.pop()
+        if stack == target:
+            return answer
+
+        for i in range(len(words)):
+            if len([j for j in range(len(words[i])) if words[i][j] != stack[j]]) == 1:
+                if visited[i] != 0:
+                    continue
+                visited[i] = 1
+                stacks.append(words[i])
+        answer += 1
+    return answer
