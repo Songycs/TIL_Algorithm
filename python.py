@@ -27,9 +27,10 @@ dict.get('key') # none if not exist
 del dict['key']
 dict.clear()
 from collections import defaultdict #
-int dic_int = defaultdict(int)
+dic_int = defaultdict(int)
 dic_int['key'] # 0 #
-list dic_list = defaultdict(list) dic_list['key']
+dic_list = defaultdict(list)
+dic_list['key']
 dic_int['key2'] = '명시적인 값 지정하면 변경됨'
 dic_int
 # # defaultdict(int, {'key': 0, 'key2': '명시적인 값 지정하면 변경됨'})
@@ -58,8 +59,18 @@ def count_by_range(a, left_value, right_value):
 #zfill(앞채우기), rjust(앞채우기),ljust(뒤채우기), center(양옆)
 #format활용가능
 
-value.zfill(num)
+#lambda, filter, map, reduce
+list(map(lambda x: str(x) if x % 3 == 0 else x, a))
+#lambda 매개변수들: 식1 if 조건식1 else 식2 if 조건식2 else 식3
+list(filter(lambda x: x > 5 and x < 10, a))
+def f(x, y):
+  return x + y
 
+a = [1, 2, 3, 4, 5]
+from functools import reduce
+reduce(f, a)
+
+reduce(lambda x, y: x + y, a)
 
 #union find
 def find_parent(parent, x):
@@ -119,6 +130,40 @@ for i in range(e):
 
 
 # 위상정렬
+
+from collections import deque
+
+# 노드의 개수와 간선의 개수를 입력 받기
+v, e = map(int, input().split())
+# 모든 노드에 대한 진입차수는 0으로 초기화
+indegree = [0] * (v + 1)
+# 각 노드에 연결된 간선 정보를 담기 위한 연결 리스트 초기화
+graph = [[] for i in range(v + 1)]
+
+# 방향 그래프의 모든 간선 정보를 입력 받기
+for _ in range(e):
+    a, b = map(int, input().split())
+    graph[a].append(b) # 정점 A에서 B로 이동 가능
+    # 진입 차수를 1 증가
+    indegree[b] += 1
+
+# 위상 정렬 함수
+def topology_sort():
+    result = []
+    q = deque()
+    for i in range(1, v + 1):
+        if indegree[i] == 0:
+            q.append(i)
+
+    while q:
+        now = q.popleft()
+        result.append(now)
+        for i in graph[now]:
+            indegree[i] -= 1
+            if indegree[i] == 0:
+                q.append(i)
+topology_sort()
+
 #1 인접행렬
 def topological_sort(adj_mat):
     in_degrees = []
@@ -694,39 +739,36 @@ def LIS(sequence):
 
 
 #이진탐색
-def lis(arr):
-    if not arr:
-        return 0
-    INF = float('inf')
-    C = [INF] * (len(arr)+1)
-    C[0] = -INF
-    C[1] = arr[0]
-    tmp_longest = 1
+def binary_search(target, data):
+    data.sort()
+    start = 0
+    end = len(data) - 1
 
-    def search(lo, hi, n):
-        if lo == hi:
-            return lo
-        elif lo + 1 == hi:
-            return lo if C[lo] >= n else hi
+    while start <= end:
+        mid = (start + end) // 2
 
-        mid = (lo + hi) // 2
-        if C[mid] == n:
-            return mid
-        elif C[mid] < n:
-            return search(mid+1, hi, n)
+        if data[mid] == target:
+            return mid # 함수를 끝내버린다.
+        elif data[mid] < target:
+            start = mid + 1
         else:
-            return search(lo, mid, n)
+            end = mid -1
 
-    for n in arr:
-        if C[tmp_longest] < n:
-            tmp_longest += 1
-            C[tmp_longest] = n
-        else:
-            next_loc = search(0, tmp_longest, n)
-            C[next_loc] = n
+    return None
+def binary_search_recursion(target, start, end, data):
+    if start > end:
+        return None
 
-    return tmp_longest
+    mid = (start + end) // 2
 
+    if data[mid] == target:
+        return mid
+    elif data[mid] > target:
+        end = mid - 1
+    else:
+        start = mid + 1
+
+    return binary_search_recursion(target, start, end, data)
 
 
 #자리수합
@@ -742,7 +784,7 @@ def sum_digit(number):
 
 
 
-#bfs 네트워크
+#bfs 기본형, 네트워크
 
 from collections import deque
 
@@ -871,3 +913,263 @@ def solution2(begin, target, words):
                 stacks.append(words[i])
         answer += 1
     return answer
+
+
+#슬라이딩 윈도우
+s = "abcabcbb"
+# 채점할 때에는 s가 주어짐 !!
+ans = 0
+left_cursor = 0
+used = {}
+
+def solution():
+  for right_cursor, char in enumerate(s):
+      if char in used and left_cursor <= used[char]:
+          left_cursor = used[char] + 1
+          # 왼쪽 커서를 반복되는 문자의 다음 문자 인덱스에 + 1
+          # abcda 이면 반복되는게 a 니까 길이는 그전에 a로 부터 시작했을거 아니야
+          # 이 때 left 는 0 이였겠지
+          # left 를 0에서 1을 더해줘 그럼 뭐야 ?
+          # left를 (시작점) 반복되는 문자의 바로 다음 문자의 인덱스로 정해준다.
+
+      else:
+          # 처음 나오는 문자라면
+          ans = max(ans, right_cursor - left_cursor + 1)
+          # 중복 전까지 다른 문자가 연속된 최대 횟수
+          # 오른쪽 - 왼쪽 + 1 => 그 사이에 몇개가 있나 ?
+      used[char] = right_cursor
+      # value값 업데이트
+      # 중복됐던거는 그거의 인덱스를 다시 저장
+      # abcabc 에서 두번째 a 가 나왔을 때 used[a] = 3 으로 업데이트
+
+  return ans
+
+
+#구현, 상하좌우
+# N 입력받기
+n = int(input())
+x, y = 1, 1
+plans = input().split()
+
+# L, R, U, D에 따른 이동 방향
+dx = [0, 0, -1, 1]
+dy = [-1, 1, 0, 0]
+move_types = ['L', 'R', 'U', 'D']
+
+# 이동 계획을 하나씩 확인
+for plan in plans:
+    # 이동 후 좌표 구하기
+    for i in range(len(move_types)):
+        if plan == move_types[i]:
+            nx = x + dx[i]
+            ny = y + dy[i]
+    # 공간을 벗어나는 경우 무시
+    if nx < 1 or ny < 1 or nx > n or ny > n:
+        continue
+    # 이동 수행
+    x, y = nx, ny
+
+print(x, y)
+
+
+
+#dfs 기본
+def solution(graph):
+  def dfs(graph, v, visited):
+    visited[v] = True
+    print(v, end=' ')
+    for i in graph[v]:
+      if not visited[i]:
+        dfs(graph,i, visited)
+  graph = [[],[],[]]
+  visited = [False] * 9
+  dfs(graph, 1, visited)
+
+
+# dfs N-queen
+def dfs(queen, n, row):
+    count = 0
+
+    if n == row:
+        return 1
+
+    # 가로로 한번만 진행
+    for col in range(n):
+      queen[row] = col
+
+      # for-else구문
+      for x in range(row):
+        # 세로로 겹치면 안됨
+        if queen[x] == queen[row]:
+            break
+
+        # 대각선으로 겹치면 안됨
+        if abs(queen[x]-queen[row]) == (row-x):
+            break
+        else:
+            count += dfs(queen, n, row+1)
+
+    return count
+
+def solution(n):
+    queen = [0]*n
+
+    return dfs(queen, n, 0)
+
+
+# DFS 음료수얼려먹기
+
+n, m = map(int, input().split())
+graph = []
+for i in range(n):
+    graph.append(list(map(int, input())))
+
+def dfs(x, y):
+    if x <= -1 or x >= n or y <= -1 or y >= m:
+        return False
+    if graph[x][y] == 0:
+        graph[x][y] = 1
+        dfs(x - 1, y)
+        dfs(x, y - 1)
+        dfs(x + 1, y)
+        dfs(x, y + 1)
+        return True
+    return False
+
+result = 0
+for i in range(n):
+    for j in range(m):
+        if dfs(i, j) == True:
+            result += 1
+
+print(result) # 정답 출력
+
+
+
+
+# 선택정렬
+def selection_sort(arr):
+    for i in range(len(arr) - 1):
+        min_idx = i
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+
+#삽입정렬
+def insertion_sort(arr):
+    for end in range(1, len(arr)):
+        for i in range(end, 0, -1):
+            if arr[i - 1] > arr[i]:
+                arr[i - 1], arr[i] = arr[i], arr[i - 1]
+
+# 퀵정렬
+def quick_sort(array, start, end):
+    if start >= end:
+        return
+    pivot = start
+    left = start + 1
+    right = end
+    while(left <= right):
+        # 피벗보다 큰 데이터를 찾을 때까지 반복
+        while(left <= end and array[left] <= array[pivot]):
+            left += 1
+        # 피벗보다 작은 데이터를 찾을 때까지 반복
+        while(right > start and array[right] >= array[pivot]):
+            right -= 1
+        if(left > right): # 엇갈렸다면 작은 데이터와 피벗을 교체
+            array[right], array[pivot] = array[pivot], array[right]
+        else: # 엇갈리지 않았다면 작은 데이터와 큰 데이터를 교체
+            array[left], array[right] = array[right], array[left]
+    # 분할 이후 왼쪽 부분과 오른쪽 부분에서 각각 정렬 수행
+    quick_sort(array, start, right - 1)
+    quick_sort(array, right + 1, end)
+
+quick_sort(array, 0, len(array) - 1)
+
+array = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
+
+def quick_sort(array):
+    # 리스트가 하나 이하의 원소만을 담고 있다면 종료
+    if len(array) <= 1:
+        return array
+
+    pivot = array[0] # 피벗은 첫 번째 원소
+    tail = array[1:] # 피벗을 제외한 리스트
+
+    left_side = [x for x in tail if x <= pivot] # 분할된 왼쪽 부분
+    right_side = [x for x in tail if x > pivot] # 분할된 오른쪽 부분
+
+    # 분할 이후 왼쪽 부분과 오른쪽 부분에서 각각 정렬을 수행하고, 전체 리스트를 반환
+    return quick_sort(left_side) + [pivot] + quick_sort(right_side)
+
+print(quick_sort(array))
+
+
+#힙정렬
+def heapsort(iterable):
+    h = []
+    result = []
+    # 모든 원소를 차례대로 힙에 삽입
+    for value in iterable:
+        heapq.heappush(h, value) # min heap
+    # 힙에 삽입된 모든 원소를 차례대로 꺼내어 담기
+    for i in range(len(h)):
+        result.append(heapq.heappop(h))
+    return result                        # max heap 사용시 입력과 출력시 -1를 붙인다.
+
+
+def heap_sort(unsorted):
+    # 리스트에 전체 길이를 받음
+    n = len(unsorted)
+
+    # // 연산자 : 몫 구하기
+    # 이진트리를 구하기 때문에 전체 크기의 반만 반복
+    # for문을 거꾸로 돌아감
+    # 이진트리의 가장 아래서부터 heapifyt를 실행하여 힙 구조를 만듬
+
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(unsorted, i, n)
+
+    # 마지막 노드부터 루트노드를 기준으로 값을 스위치하면서 정렬
+    for i in range(n - 1, 0, -1):
+        unsorted[0], unsorted[i] = unsorted[i], unsorted[0]
+        heapify(unsorted, 0, i)
+    return unsorted
+
+# 계수정렬
+array = [7, 5, 9, 0, 3, 1, 6, 2, 9, 1, 4, 8, 0, 5, 2]
+count = [0] * (max(array) + 1)
+
+for i in range(len(array)):
+    count[array[i]] += 1 # 각 데이터에 해당하는 인덱스의 값 증가
+
+for i in range(len(count)): # 리스트에 기록된 정렬 정보 확인
+    for j in range(count[i]):
+        print(i, end=' ') # 띄어쓰기를 구분으로 등장한 횟수만큼 인덱스 출력
+
+
+
+#DP, 1로만들기
+def  solution():
+  n = int(input())
+
+  dp = [0] * (n+1)
+
+  for i in range(2, n+1):
+      dp[i] = dp[i-1] + 1
+
+      if i % 2 == 0:
+          dp[i] = min(dp[i], dp[i//2]+1)
+      if i % 3 == 0:
+          dp[i] = min(dp[i], dp[i//3] + 1)
+
+  print(dp[n])
+
+
+#최대 점수합 , KNAPSACK
+dy = [0] * (m+1)
+for i in range(n):
+    for j in range(m, quiz[i][1]-1, -1):
+        dy[j] = max(dy[j], dy[j-quiz[i][1]] + quiz[i][0])
+print(dy[m])
